@@ -1,0 +1,49 @@
+# @package _global_
+
+defaults:
+  - dreamer_v3
+  - override /algo: dreamer_v3_XS
+  - override /env: eliona_env
+  - _self_
+
+# Experiment
+seed: 5
+
+# Environment
+env:
+  num_envs: 1
+  wrapper:
+    _target_: gymnasium.make
+    id: ElionaEnv
+    render_mode: rgb_array
+
+# Checkpoint
+checkpoint:
+  every: 500
+
+# Buffer
+buffer:
+  size: 500_000
+  checkpoint: True
+  memmap: True
+
+# Algorithm
+algo:
+  total_steps: 1_000_000
+  cnn_keys:
+    encoder: []
+    decoder: []
+  mlp_keys:
+    encoder: ['obs']
+    decoder: ['obs']
+  actor:
+    # ...
+    distribution_cfg:
+      type: "scaled_normal"
+
+  learning_starts: 200
+  
+
+# Metric
+metric:
+  log_every: 500

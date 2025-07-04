@@ -1,0 +1,19 @@
+# sheeprl/configs/env/custom.yaml
+defaults:
+  - default
+  - _self_
+
+id: ElionaEnv
+num_envs: 1
+frame_stack: 1
+sync_env: false
+action_repeat: 1
+max_episode_steps: 2000
+reward_as_observation: true
+
+
+# Specify a simple wrapper that calls gymnasium.make
+wrapper:
+  _target_: gymnasium.make
+  id: ${env.id}
+  render_mode: human
